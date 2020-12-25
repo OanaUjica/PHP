@@ -3,8 +3,8 @@
 if ($_SERVER["REQUEST_METHOD"]=="POST")
 {
 $host= "localhost";
-$usernamesql = "root";
-$passwordsql = "";
+$usernamesql= "root";
+$passwordsql= "";
 $db_name= "userapp";
 $table_name="utilizatori";
 
@@ -15,18 +15,21 @@ if (mysqli_connect_errno()) {
   exit();
 }
 
-$salt1 = "qm&h*";
-$salt2 = "pg!@";
-$user=$_POST["user"];
-$password=$_POST["password"];
-$token=md5("$salt1$password$salt2");
+$orderByName= $_POST['orderByName'];
+$date = date('Y-m-d');
+$user= $_POST['user'];
+$password = $_POST['password'];
 // Perform query
-$query= "INSERT INTO $table_name (username, parola) VALUES ('$user', '$token')";
+$query= "SELECT username FROM $table_name WHERE username='$user' AND parola='$password'";
 $result= mysqli_query($db, $query);
-if ($result) {
-  echo "New user created successfully!";
+$row = mysqli_num_rows($result);
+
+if ($row == 1) {
+  echo "Hello, $user!" . "<br>";
+  echo "Order by name " . $orderByName . "." . "<br>";
+  echo "Current date: " . $date;
 } else {
-  echo "Error: " . $query. "<br>" .mysqli_error($db);
+  echo "Wrong user or password. Please try again!";
 }
 header("Location.login.php");
 
@@ -41,17 +44,18 @@ exit();
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" target="_self" enctype="multipart/form-data">
 
-<h1>LOGIN - problem 11</h1>
+<h1>LOGIN - problem 11 & 12 & 13</h1>
 
 <label for="user">User: </label>
 <input type="text" id="user" name="user"><br><br>
 <label for="password">Password: </label>
 <input type="password" id="password" name="password"><br><br>
 
-<input type="radio" id="ascending" name="ascendingOrder" value="ascending">
+<p>ORDER BY NAME</p>
+<input type="radio" id="ascending" name="orderByName" value="ascending">
 <label for="ascending">Ascending</label><br>
-<input type="radio" id="descending" name="descendingOrder" value="descending">
-<label for="descending">Descending</label><br>
+<input type="radio" id="descending" name="orderByName" value="descending">
+<label for="descending">Descending</label><br><br>
 
 <input type="submit" name="submit" value="Submit" style="background-color:powderblue;">
 </form>
