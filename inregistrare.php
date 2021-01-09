@@ -45,8 +45,6 @@ exit();
 ?>
 
 
-
-
 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" target="_self" enctype="multipart/form-data">
 
 <h1>REGISTER - problem 5 & 7 & 8 & 15</h1>
