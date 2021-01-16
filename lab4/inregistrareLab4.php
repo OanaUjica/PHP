@@ -31,7 +31,11 @@ if ($_SERVER["REQUEST_METHOD"]=="POST")
   }
 
   $user=$_POST["user"];
+
+  $salt1 = "Qm&h*";
+  $salt2 = "pg!@";
   $password=$_POST["password"];
+  $token=md5("$salt1$password$salt2");
 
   $sex=$_POST["sex"];
   $sexSql= $sex == "female" ? 0 : 1;
@@ -135,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST")
     // se introduce in baza de date si oprim rularea scriptului exit()
     // Perform query
     $query= "INSERT INTO $table_name (username, parola, sex, stareacivila, nume, prenume, email)
-              VALUES ('$username1', '$password1', '$sexSql', '$stareaCivilaSql', '$nume1', '$prenume1', '$email1')";
+              VALUES ('$username1', '$token', '$sexSql', '$stareaCivilaSql', '$nume1', '$prenume1', '$email1')";
     $result= mysqli_query($db, $query);
     if ($result) {
       echo "New user created successfully!";
