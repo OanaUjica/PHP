@@ -36,10 +36,12 @@
 
         while ($r=mysqli_fetch_array($result))
         {
+          $poza4 = $r['poza'];
           $user4 = $r['username'];
           $nume4 = $r['nume'];
           $prenume4 = $r['prenume'];
           echo "Username: " . $user4 . " => " . "Name: " . $nume4 . " " . $prenume4 . "<br>";
+          echo "<img src='". $poza4 ."' width='200'><br>";
         }
       }
       //daca utilizatorul nu este autentificat se va afisa numai o lista cu username-uri neordonate
