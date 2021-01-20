@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST")
   $nume=$_POST["nume"];
   $prenume=$_POST["prenume"];
   $email=$_POST["email"];
+  $fileupload=$_POST["fileupload"];
   $orderby=$_POST['order'];
 
   if (empty($nume))
@@ -126,35 +127,35 @@ if ($_SERVER["REQUEST_METHOD"]=="POST")
       }
   }
 
-    $max_file_size=500000;
-  // verificare daca a fost uploadat un fisier
-    if($_FILES["fileupload"]["size"]==0)
-        {
-          $fileerr="Poza de profil este obligatorie";
-          $eroare=1;
-        }
-  // verifica sa nu fie prea mare fisierul
-    elseif($_FILES["fileupload"]["size"]>$max_file_size)
-        {
-          $fileerr="Fisierul este prea mare";
-          $eroare=1;
-        }
-  // verifica daca fisierul este o poza
-    elseif(getimagesize($_FILES["fileupload"]["tmp_name"])==false)
-        {
-          $fileerr="Fisierul nu este o imagine";
-          $eroare=1;
-        }
+  $max_file_size=500000;
+// verificare daca a fost uploadat un fisier
+  if($_FILES["fileupload"]["size"]==0)
+  {
+    $fileerr="Poza de profil este obligatorie";
+    $eroare=1;
+  }
+// verifica sa nu fie prea mare fisierul
+  elseif($_FILES["fileupload"]["size"]>$max_file_size)
+  {
+    $fileerr="Fisierul este prea mare";
+    $eroare=1;
+  }
+// verifica daca fisierul este o poza
+  elseif(getimagesize($_FILES["fileupload"]["tmp_name"])==false)
+  {
+    $fileerr="Fisierul nu este o imagine";
+    $eroare=1;
+  }
 
-    $file_dir="pictures/";
- // se declara o variabila pentru locatia si denumirea fisierului de salvat (cu numele original al fisierului)
-    $target_file = $file_dir . basename($_FILES["fileupload"]["name"]);
- // se scoate extensia din denumirea fisierului
-    $image_type = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
- // se declara o variabila pentru locatia si denumirea fisierului de salvat (cu username-ul introdus si extensia originala)
-    $target_file = $file_dir . $username1 .".". $image_type;
- // se uploadeaza poza
-    move_uploaded_file($_FILES["fileupload"]["tmp_name"], $target_file);
+  $file_dir="pictures/";
+// se declara o variabila pentru locatia si denumirea fisierului de salvat (cu numele original al fisierului)
+  $target_file = $file_dir . basename($_FILES["fileupload"]["name"]);
+// se scoate extensia din denumirea fisierului
+  $image_type = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// se declara o variabila pentru locatia si denumirea fisierului de salvat (cu username-ul introdus si extensia originala)
+  $target_file = $file_dir . $username1 .".". $image_type;
+// se uploadeaza poza
+  move_uploaded_file($_FILES["fileupload"]["tmp_name"], $target_file);
 
   if ($eroare==0)
   {
@@ -162,8 +163,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST")
     $_SESSION['Orderby']=$orderby;
     // se introduce in baza de date si oprim rularea scriptului exit()
     // Perform query
-    $query= "INSERT INTO $table_name (username, parola, sex, stareacivila, nume, prenume, email)
-              VALUES ('$username1', '$token', '$sexSql', '$stareaCivilaSql', '$nume1', '$prenume1', '$email1')";
+    $query= "INSERT INTO $table_name (username, parola, sex, stareacivila, nume, prenume, email, poza)
+              VALUES ('$username1', '$token', '$sexSql', '$stareaCivilaSql', '$nume1', '$prenume1', '$email1', '$target_file')";
     $result= mysqli_query($db, $query);
     if ($result) {
       header("Location: http://localhost:8080/php/lab3/lab5/index.php");
