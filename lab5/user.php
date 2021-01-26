@@ -33,6 +33,9 @@
       $UserParola=$row["parola"];
       $UserStarecivila=$row["stareCivila"];
       $UserSex=$row["sex"];
+      $UserPhoto=$row["poza"];
+      $UserRegistrationDate=$row["dataregistrare"];
+      $UserExtention=$row["extensie"];
     }
 
     $count=mysqli_num_rows($result);
@@ -40,15 +43,18 @@
     //daca e ok -> inregistrare user
     if($count==1) {
 
-      $_SESSION['Username']=$Username;
-      $_SESSION['UserID']=$UserID;
-      $_SESSION['UserNume']=$UserNume;
-      $_SESSION['UserPrenume']=$UserPrenume;
-      $_SESSION['UserEmail']=$UserEmail;
+      $_SESSION["Username"]=$Username;
+      $_SESSION["UserID"]=$UserID;
+      $_SESSION["UserNume"]=$UserNume;
+      $_SESSION["UserPrenume"]=$UserPrenume;
+      $_SESSION["UserEmail"]=$UserEmail;
       $_SESSION['UserParola']=$UserParola;
       $_SESSION['UserStarecivila']=$UserStarecivila;
       $_SESSION['UserSex']=$UserSex;
       $_SESSION['Orderby']=$orderby;
+      $_SESSION["UserPhoto"]=$UserPhoto;
+      $_SESSION["RegistrationDate"]=$UserRegistrationDate;
+      $_SESSION["UserExtention"]=$UserExtention;
 
       echo "<meta http-equiv='refresh' content='0;URL=index.php'>";
 
