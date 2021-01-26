@@ -6,11 +6,18 @@
     <div align="left">
       <?php
         //se verifica daca utilizatorul este autentficat
-        if (isset($_SESSION['Username']))
+        if (isset($_SESSION["Username"]))
         {
+          $date = $_SESSION["RegistrationDate"];
+          $photo = $_SESSION["UserPhoto"];
+          $userName = $_SESSION["Username"];
+
           echo "<a href='logout.php' target='_self'>Logout</a>";
           echo "&nbsp; | &nbsp;";
-          echo "<a href='schimbareparola.php' target='_self'>Change password</a>";
+          echo "<a href='schimbareparola.php' target='_self'>Change password</a>" . "<br>" . "<br>";
+
+          echo $userName . " registration date: " . $date . "<br>";
+          echo "<img src='". $photo ."' width='200'>" . "<br>";
         }
         //daca utilizatorul nu este autentificat
         else
@@ -26,7 +33,7 @@
     <h2>Registered users</h2>
     <?php
       //daca utilizatorul este autentificat se va afisa o lista cu utilizatorii in ordinea aleasa
-      if (isset($_SESSION['Username']))
+      if (isset($_SESSION["Username"]))
       {
         require_once ("config.php");
         $orderby = $_SESSION['Orderby'];
@@ -40,8 +47,11 @@
           $user4 = $r['username'];
           $nume4 = $r['nume'];
           $prenume4 = $r['prenume'];
+          $registrationDate = $r['dataregistrare'];
+
+          echo "Registration date: " . $registrationDate . "<br>";
           echo "Username: " . $user4 . " => " . "Name: " . $nume4 . " " . $prenume4 . "<br>";
-          echo "<img src='". $poza4 ."' width='200'><br>";
+          echo "<img src='". $poza4 ."' width='200'>" . "<br>";
         }
       }
       //daca utilizatorul nu este autentificat se va afisa numai o lista cu username-uri neordonate

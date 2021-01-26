@@ -160,11 +160,12 @@ if ($_SERVER["REQUEST_METHOD"]=="POST")
   if ($eroare==0)
   {
     $_SESSION['Username'] = $username1;
-    $_SESSION['Orderby']=$orderby;
+    $_SESSION['Orderby'] = $orderby;
+    $registrationDate = date('Y/m/d');
     // se introduce in baza de date si oprim rularea scriptului exit()
     // Perform query
-    $query= "INSERT INTO $table_name (username, parola, sex, stareacivila, nume, prenume, email, poza)
-              VALUES ('$username1', '$token', '$sexSql', '$stareaCivilaSql', '$nume1', '$prenume1', '$email1', '$target_file')";
+    $query= "INSERT INTO $table_name (username, parola, sex, stareacivila, nume, prenume, email, poza, dataregistrare, extensie)
+              VALUES ('$username1', '$token', '$sexSql', '$stareaCivilaSql', '$nume1', '$prenume1', '$email1', '$target_file', '$registrationDate', '$image_type')";
     $result= mysqli_query($db, $query);
     if ($result) {
       header("Location: http://localhost:8080/php/lab3/lab5/index.php");
