@@ -48,10 +48,10 @@
       $_SESSION["UserNume"]=$UserNume;
       $_SESSION["UserPrenume"]=$UserPrenume;
       $_SESSION["UserEmail"]=$UserEmail;
-      $_SESSION['UserParola']=$UserParola;
-      $_SESSION['UserStarecivila']=$UserStarecivila;
-      $_SESSION['UserSex']=$UserSex;
-      $_SESSION['Orderby']=$orderby;
+      $_SESSION["UserParola"]=$UserParola;
+      $_SESSION["UserStarecivila"]=$UserStarecivila;
+      $_SESSION["UserSex"]=$UserSex;
+      $_SESSION["Orderby"]=$orderby;
       $_SESSION["UserPhoto"]=$UserPhoto;
       $_SESSION["RegistrationDate"]=$UserRegistrationDate;
       $_SESSION["UserExtention"]=$UserExtention;
