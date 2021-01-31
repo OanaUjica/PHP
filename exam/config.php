@@ -1,0 +1,9 @@
+<?php
+  $host="localhost";
+  $usernamesql="root";
+  $passwordsql="";
+  $db_name="exam_php";
+  $tbl_name1="Dictionar";
+  $tbl_name2="Joc";
+  $tbl_name3="Utilizatori";
+?>
